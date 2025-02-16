@@ -1,25 +1,17 @@
 ---
-# Change the Date below
 date: "2025-02-16"
 
-# Add the title of the Post here
 title: 'Optimizing Timer Management in Embedded Systems with Delta Lists'
 
-# replace the "sample/cover.png" with path to a 16:9 image
-# this image will be shown in SEO optimization and when
-# you share the post on social media.
 thumbnail: "/posts/delta_lists_for_timers/thumbnail.png"
 
-# Add your GitHub handle here
 author: "neeraj1397"
 
-# Add tags as suitable for the topic
 tags:
   - "timers"
   - "linkedlists"
   - "embeddedsystems"
 
-# If it fits a certain category of topics, add that
 categories:
   - "Embedded Timers"
 
