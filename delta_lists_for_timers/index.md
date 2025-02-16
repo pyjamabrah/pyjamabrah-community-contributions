@@ -31,9 +31,9 @@ This short article explores delta lists, how they work, and why they are widely 
 
 Embedded systems often rely on multiple software timers to schedule periodic tasks. These timers may be used for:
 
-✅ Power-saving modes (e.g., Wi-Fi sleep intervals)
-✅ Sensor data sampling (e.g., wake up every 10 ms)
-✅ RTOS task scheduling
+✅ Power-saving modes (e.g., Wi-Fi sleep intervals)  
+✅ Sensor data sampling (e.g., wake up every 10 ms)  
+✅ RTOS task scheduling  
 ✅ Periodic communication events (e.g., sending a heartbeat message every 100 ms)
 
 A naive approach would be to store all timers in an unsorted list and check each one on every tick. However, this leads to unnecessary CPU cycles and power consumption, especially in low-power IoT devices.
@@ -74,10 +74,10 @@ This way, only one timer is checked at a time, significantly reducing CPU worklo
 
 ## Advantages of Delta Lists
 
-✅ **Lower CPU Overhead** – No need to check all timers every tick.
-✅ **Optimized Wake-Ups** – Reduces unnecessary processor wake-ups in low-power systems.
-✅ **Efficient RTOS Scheduling** – Faster execution of task delays and periodic timers.
-✅ **Scalability** – Can efficiently handle hundreds of software timers.
+✅ **Lower CPU Overhead** – No need to check all timers every tick.  
+✅ **Optimized Wake-Ups** – Reduces unnecessary processor wake-ups in low-power systems.  
+✅ **Efficient RTOS Scheduling** – Faster execution of task delays and periodic timers.  
+✅ **Scalability** – Can efficiently handle hundreds of software timers.  
 
 ## Where are Delta Lists Used?
 
@@ -170,10 +170,10 @@ last_delta_update_count = current_cnt;
 
 While delta lists offer significant advantages, they also come with some challenges:
 
-🚫 **Insertion Complexity** – Adding a new timer requires traversing the list to find the correct position, which may not be ideal for systems with frequent timer insertions.
-🚫 **Not Suitable for Random Access** – Unlike an array-based timer system, delta lists require sequential traversal, making random access inefficient.
-🚫 **Interrupt Handling Overhead** – Updating the list inside an ISR (Interrupt Service Routine) might introduce latency if not optimized properly.
-🚫 **Memory Fragmentation** – Since delta lists rely on linked lists, they may contribute to memory fragmentation in heap-based allocations.
+🚫 **Insertion Complexity** – Adding a new timer requires traversing the list to find the correct position, which may not be ideal for systems with frequent timer insertions.  
+🚫 **Not Suitable for Random Access** – Unlike an array-based timer system, delta lists require sequential traversal, making random access inefficient.  
+🚫 **Interrupt Handling Overhead** – Updating the list inside an ISR (Interrupt Service Routine) might introduce latency if not optimized properly.  
+🚫 **Memory Fragmentation** – Since delta lists rely on linked lists, they may contribute to memory fragmentation in heap-based allocations.  
 
 
 ## Conclusion
