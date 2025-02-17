@@ -98,7 +98,8 @@ IoT devices often sample sensors at precise intervals (e.g., reading temperature
 
 ## Implementation: Delta List in C
 
-Below is a simple C implementation of how a delta list updates timer values:
+Below is a simple C implementation of how a delta list updates timer values [[1]](#1):
+
 
 ```c
 void update_delta_list(void) {
@@ -181,3 +182,7 @@ While delta lists offer significant advantages, they also come with some challen
 
 The delta list approach is a powerful method for managing software timers efficiently in embedded systems, Wi-Fi chipsets, RTOS environments, and IoT devices. By reducing CPU wake-ups and optimizing scheduling, it plays a crucial role in power management and real-time execution.
 
+
+## References
+<a id="1">[1]</a>
+Silicon Labs. <WiSeConnect SDK>/sl_sleeptimer_start_periodic_timer_ms() API. Application: [sl_si91x_blinky](https://github.com/SiliconLabs/wiseconnect/tree/master/examples/si91x_soc/peripheral/sl_si91x_blinky).
