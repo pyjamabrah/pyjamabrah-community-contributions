@@ -185,4 +185,4 @@ The delta list approach is a powerful method for managing software timers effici
 
 ## References
 <a id="1">[1]</a>
-Silicon Labs. <WiSeConnect SDK>/sl_sleeptimer_start_periodic_timer_ms() API. Application: [sl_si91x_blinky](https://github.com/SiliconLabs/wiseconnect/tree/master/examples/si91x_soc/peripheral/sl_si91x_blinky).
+Silicon Labs. WiSeConnect SDK/sl_sleeptimer_start_periodic_timer_ms() API. Application: [sl_si91x_blinky](https://github.com/SiliconLabs/wiseconnect/tree/master/examples/si91x_soc/peripheral/sl_si91x_blinky).
