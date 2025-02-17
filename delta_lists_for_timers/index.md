@@ -3,7 +3,7 @@ date: "2025-02-16"
 
 title: 'Optimizing Timer Management in Embedded Systems with Delta Lists'
 
-thumbnail: "/posts/delta_lists_for_timers/thumbnail.png"
+thumbnail: "/posts/delta_lists_for_timers/cover.png"
 
 author: "neeraj1397"
 
@@ -14,28 +14,26 @@ tags:
 
 categories:
   - "Embedded Timers"
+
+product: "c"
 ---
 
+![](/posts/delta_lists_for_timers/cover.png "Delta Timer List")
 
 Efficient timer management is a crucial aspect of embedded systems, especially in applications requiring low-power operation, RTOS scheduling, or precise event timing. One of the most efficient ways to manage multiple software timers is the delta list approach, which significantly reduces CPU overhead and optimizes wake-up schedules.
 
 This short article explores delta lists, how they work, and why they are widely used in low-power MCUs, real-time operating systems (RTOS), and networking applications.
 
-
 <!--more-->
-
-
-![](cover.png "Delta Timer List")
-
 
 ## The Challenge: Managing Multiple Timers Efficiently
 
 Embedded systems often rely on multiple software timers to schedule periodic tasks. These timers may be used for:
 
-✅ Power-saving modes (e.g., Wi-Fi sleep intervals)  
-✅ Sensor data sampling (e.g., wake up every 10 ms)  
-✅ RTOS task scheduling  
-✅ Periodic communication events (e.g., sending a heartbeat message every 100 ms)
+- Power-saving modes (e.g., Wi-Fi sleep intervals)
+- Sensor data sampling (e.g., wake up every 10 ms)
+- RTOS task scheduling
+- Periodic communication events (e.g., sending a heartbeat message every 100 ms)
 
 A naive approach would be to store all timers in an unsorted list and check each one on every tick. However, this leads to unnecessary CPU cycles and power consumption, especially in low-power IoT devices.
 
@@ -43,12 +41,8 @@ A better approach is to use a delta list, which optimizes timer updates and redu
 
 ## What is a Delta List?
 
-A delta list is a sorted linked list where each timer stores a relative time difference (delta) rather than an absolute expiration time. Instead of keeping track of exact timestamps, the difference between consecutive timers is stored and updated 
-dynamically.
-
-### Example
-
-Consider three timers set to expire at 5 ms, 12 ms, and 18 ms. Instead of storing absolute values:
+A delta list is a sorted linked list where each timer stores a relative time difference (delta) rather than an absolute expiration time. Instead of keeping track of exact timestamps, the difference between consecutive timers is stored and updated
+dynamically. Consider three timers set to expire at 5 ms, 12 ms, and 18 ms. Instead of storing absolute values:
 
 **Traditional Timer List (Absolute Expiration Times):**
 ```
@@ -62,23 +56,23 @@ A delta list stores:
 
 Each timer now holds only the time difference from the previous one.
 
-![](Delta_List.png "Simple Example for Delta Lists")
+![](delta_List.png "Simple Example for Delta Lists")
 
 ## How the Delta List Updates
 
 1. The first timer (5 ms) expires.
-2. The next timer’s delta is adjusted by subtracting the expired timer’s value:
-   - **Updated list →** `[7 - 5, 6] → [2 ms, 6 ms]`
-3. The next timer (2 ms) expires, updating the list further.
+1. The next timer’s delta is adjusted by subtracting the expired timer’s value:
+  1. **Updated list →** `[7 - 5, 6] → [2 ms, 6 ms]`
+1. The next timer (2 ms) expires, updating the list further.
 
 This way, only one timer is checked at a time, significantly reducing CPU workload.
 
 ## Advantages of Delta Lists
 
-✅ **Lower CPU Overhead** – No need to check all timers every tick.  
-✅ **Optimized Wake-Ups** – Reduces unnecessary processor wake-ups in low-power systems.  
-✅ **Efficient RTOS Scheduling** – Faster execution of task delays and periodic timers.  
-✅ **Scalability** – Can efficiently handle hundreds of software timers.  
+- **Lower CPU Overhead** – No need to check all timers every tick.
+- **Optimized Wake-Ups** – Reduces unnecessary processor wake-ups in low-power systems.
+- **Efficient RTOS Scheduling** – Faster execution of task delays and periodic timers.
+- **Scalability** – Can efficiently handle hundreds of software timers.
 
 ## Where are Delta Lists Used?
 
@@ -98,7 +92,7 @@ IoT devices often sample sensors at precise intervals (e.g., reading temperature
 
 ## Implementation: Delta List in C
 
-Below is a simple C implementation of how a delta list updates timer values [[1]](#1):
+Below is a simple C implementation of how a delta list updates timer values[^1]:
 
 
 ```c
@@ -172,10 +166,10 @@ last_delta_update_count = current_cnt;
 
 While delta lists offer significant advantages, they also come with some challenges:
 
-🚫 **Insertion Complexity** – Adding a new timer requires traversing the list to find the correct position, which may not be ideal for systems with frequent timer insertions.  
-🚫 **Not Suitable for Random Access** – Unlike an array-based timer system, delta lists require sequential traversal, making random access inefficient.  
-🚫 **Interrupt Handling Overhead** – Updating the list inside an ISR (Interrupt Service Routine) might introduce latency if not optimized properly.  
-🚫 **Memory Fragmentation** – Since delta lists rely on linked lists, they may contribute to memory fragmentation in heap-based allocations.  
+🚫 **Insertion Complexity** – Adding a new timer requires traversing the list to find the correct position, which may not be ideal for systems with frequent timer insertions.
+🚫 **Not Suitable for Random Access** – Unlike an array-based timer system, delta lists require sequential traversal, making random access inefficient.
+🚫 **Interrupt Handling Overhead** – Updating the list inside an ISR (Interrupt Service Routine) might introduce latency if not optimized properly.
+🚫 **Memory Fragmentation** – Since delta lists rely on linked lists, they may contribute to memory fragmentation in heap-based allocations.
 
 
 ## Conclusion
@@ -184,5 +178,4 @@ The delta list approach is a powerful method for managing software timers effici
 
 
 ## References
-<a id="1">[1]</a>
-Silicon Labs. WiSeConnect SDK/sl_sleeptimer_start_periodic_timer_ms() API. Application: [sl_si91x_blinky](https://github.com/SiliconLabs/wiseconnect/tree/master/examples/si91x_soc/peripheral/sl_si91x_blinky).
+[^1]: Silicon Labs. `WiSeConnect SDK/sl_sleeptimer_start_periodic_timer_ms()` API. Application: [sl_si91x_blinky](https://github.com/SiliconLabs/wiseconnect/tree/master/examples/si91x_soc/peripheral/sl_si91x_blinky).
