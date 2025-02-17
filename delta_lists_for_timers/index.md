@@ -69,10 +69,10 @@ This way, only one timer is checked at a time, significantly reducing CPU worklo
 
 ## Advantages of Delta Lists
 
-- **Lower CPU Overhead** – No need to check all timers every tick.
-- **Optimized Wake-Ups** – Reduces unnecessary processor wake-ups in low-power systems.
-- **Efficient RTOS Scheduling** – Faster execution of task delays and periodic timers.
-- **Scalability** – Can efficiently handle hundreds of software timers.
+1. **Lower CPU Overhead** – No need to check all timers every tick.
+1. **Optimized Wake-Ups** – Reduces unnecessary processor wake-ups in low-power systems.
+1. **Efficient RTOS Scheduling** – Faster execution of task delays and periodic timers.
+1. **Scalability** – Can efficiently handle hundreds of software timers.
 
 ## Where are Delta Lists Used?
 
@@ -165,11 +165,10 @@ last_delta_update_count = current_cnt;
 ## Potential Challenges and Limitations
 
 While delta lists offer significant advantages, they also come with some challenges:
-
-🚫 **Insertion Complexity** – Adding a new timer requires traversing the list to find the correct position, which may not be ideal for systems with frequent timer insertions.
-🚫 **Not Suitable for Random Access** – Unlike an array-based timer system, delta lists require sequential traversal, making random access inefficient.
-🚫 **Interrupt Handling Overhead** – Updating the list inside an ISR (Interrupt Service Routine) might introduce latency if not optimized properly.
-🚫 **Memory Fragmentation** – Since delta lists rely on linked lists, they may contribute to memory fragmentation in heap-based allocations.
+1. **Insertion Complexity** – Adding a new timer requires traversing the list to find the correct position, which may not be ideal for systems with frequent timer insertions.
+1. **Not Suitable for Random Access** – Unlike an array-based timer system, delta lists require sequential traversal, making random access inefficient.
+1. **Interrupt Handling Overhead** – Updating the list inside an ISR (Interrupt Service Routine) might introduce latency if not optimized properly.
+1. **Memory Fragmentation** – Since delta lists rely on linked lists, they may contribute to memory fragmentation in heap-based allocations.
 
 
 ## Conclusion
