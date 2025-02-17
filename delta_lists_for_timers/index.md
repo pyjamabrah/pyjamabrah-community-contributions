@@ -22,9 +22,10 @@ product: "c"
 
 Efficient timer management is a crucial aspect of embedded systems, especially in applications requiring low-power operation, RTOS scheduling, or precise event timing. One of the most efficient ways to manage multiple software timers is the delta list approach, which significantly reduces CPU overhead and optimizes wake-up schedules.
 
+<!--more-->
+
 This short article explores delta lists, how they work, and why they are widely used in low-power MCUs, real-time operating systems (RTOS), and networking applications.
 
-<!--more-->
 
 ## The Challenge: Managing Multiple Timers Efficiently
 
