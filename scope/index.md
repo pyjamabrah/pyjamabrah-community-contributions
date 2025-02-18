@@ -18,6 +18,10 @@ series:
 
 ![](/posts/scope/thumbnail.png "various types of scopes.")
 
+In the C programming language, the scope of an identifier determines where it can be accessed or referenced within a program. Understanding the different scopes in C is crucial for managing variable and function names effectively without causing conflicts.
+
+<!--more-->
+
 Let us start by understanding what an `identifier` is. It denotes -
 > **An Object**
 
@@ -27,8 +31,6 @@ An identifier that represents a variable or constant in C. For example,
 int x;
 ```
 where `x` is an object.
-
-<!-- more -->
 
 > **A Function**
 
