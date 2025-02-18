@@ -13,6 +13,8 @@ categories:
   - "basics"
 
 series: "basics"
+
+draft: true
 ---
 
 ![](/posts/tokens/tokens.png "Tokens")
