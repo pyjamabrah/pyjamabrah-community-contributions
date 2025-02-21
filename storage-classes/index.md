@@ -14,8 +14,6 @@ categories:
 
 series:
   - "basics"
-
-draft: true
 ---
 
 ![](/posts/storage-classes/storageclass.png "Storage Classes in C Language")
