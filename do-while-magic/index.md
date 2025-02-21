@@ -31,6 +31,8 @@ series:
 
 # Delete the line below when submitting for review
 #draft: true
+
+product: "c"
 ---
 
 In this article, I want to talk about the `do{..}while(0)` construct in C. This construct is often used in C programming to define multi-statement macros. It is a common pattern used in the Linux kernel and other standard C projects. I will take an example of a macro that is not safe and show how `do{..}while(0)` construct can be used to make it safe. Especially in the conditional statements.
@@ -49,7 +51,7 @@ Macros are processed in the pre-processing stage of the C compilation process. T
 They can also be used to replace code snippets, making the code more readable and maintainable. For example:
 
 ```c
-#define BROKEN_MACRO(x) statement1(x);statement2(x); 
+#define BROKEN_MACRO(x) statement1(x);statement2(x);
 ```
 The above macro `BROKEN_MACRO` takes a parameter `x` and expands to statements present after the space. This can be used to replace multiple lines of code with a single macro call.
 
@@ -185,7 +187,7 @@ int main() {
             int temp = (x);
             (x) = (y);
             (y) = temp;
-        } while(0);  
+        } while(0);
     else
         printf("No swap required\n");
     printf("x = %d, y = %d\n", x, y);
