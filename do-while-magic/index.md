@@ -168,12 +168,10 @@ Here's a complete example showing proper macro usage:
 int main() {
     int x = 5, y = 10;
     if (x != y)
-    {
         SWAP(x,y);
-        printf("x = %d, y = %d\n", x, y);
-    }
     else
         printf("No swap required\n");
+    printf("x = %d, y = %d\n", x, y);
     return 0;
 }
 ```
@@ -183,16 +181,14 @@ After pre-processing, the above code would expand to:
 int main() {
     int x = 5, y = 10;
     if (x != y)
-    {
         do {
             int temp = (x);
             (x) = (y);
             (y) = temp;
-        } while(0); 
-        printf("x = %d, y = %d\n", x, y);
-    }
+        } while(0);  
     else
         printf("No swap required\n");
+    printf("x = %d, y = %d\n", x, y);
     return 0;
 }
 ```
