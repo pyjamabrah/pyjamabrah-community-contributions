@@ -8,10 +8,10 @@ title: "A shallow dive into do{..}while(0) loop in C"
 # replace the "sample/cover.png" with path to a 16:9 image
 # this image will be shown in SEO optimization and when
 # you share the post on social media.
-thumbnail: "./do_while_title.png"
+thumbnail: "/posts/do-while-magic/cover.png"
 
 # Add your GitHub handle here
-author: "github.com/sirilcodes"
+author: "sirilcodes"
 
 # Add tags as suitable for the topic
 tags:
@@ -157,8 +157,10 @@ Using `do-while(0)` solves these issues:
 Here's a complete example showing proper macro usage:
 
 ```c
+#include <stdio.h>
+
 #define SWAP(a, b) do { \
-    typeof(a) temp = (a); \
+    int temp = (a); \
     (a) = (b); \
     (b) = temp; \
 } while(0)
@@ -166,12 +168,40 @@ Here's a complete example showing proper macro usage:
 int main() {
     int x = 5, y = 10;
     if (x != y)
-        SWAP(x, y);
+    {
+        SWAP(x,y);
+        printf("x = %d, y = %d\n", x, y);
+    }
+    else
+        printf("No swap required\n");
     return 0;
 }
 ```
+After pre-processing, the above code would expand to:
+
+```c
+int main() {
+    int x = 5, y = 10;
+    if (x != y)
+    {
+        do {
+            int temp = (x);
+            (x) = (y);
+            (y) = temp;
+        } while(0); 
+        printf("x = %d, y = %d\n", x, y);
+    }
+    else
+        printf("No swap required\n");
+    return 0;
+}
+```
+Output:
+```bash
+x = 10, y = 5
+```
 
 ## Conclusion
-While the `do-while(0)` construct in macro might look strange at first, it is a way of writing robust and safe macros in C. It is a common pattern used in the Linux kernel and other open-source C projects.
+Though the `do-while(0)` construct in macro might look strange at first, it offers a way to write safe macros in C. It is a common pattern used in the Linux kernel and other open-source C projects.
 In fact, I found it in the Linux kernel source code, and thought I should show this to the world. What other clever macro techniques have you encountered? Let me know in the comments below.
 
