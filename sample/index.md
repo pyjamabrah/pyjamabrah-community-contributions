@@ -5,6 +5,9 @@ date: "2025-02-13"
 # Add the title of the Post here
 title: 'Title of the Post'
 
+# Add short description of the article for SEO optimization
+description: ""
+
 # replace the "sample/cover.png" with path to a 16:9 image
 # this image will be shown in SEO optimization and when
 # you share the post on social media.

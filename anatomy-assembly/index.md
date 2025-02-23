@@ -5,6 +5,9 @@ date: "2025-02-23"
 # Add the title of the Post here
 title: 'Anatomy of Assembly Program'
 
+# Add short description of the article for SEO optimization
+description: "Various part of an assembly program and how to go about understanding them."
+
 # replace the "sample/cover.png" with path to a 16:9 image
 # this image will be shown in SEO optimization and when
 # you share the post on social media.
@@ -48,8 +51,8 @@ Assembly is human-readable but closely tied to the hardware. Let us break it dow
 
 1. Can be **registers**, **immediate values** (constants), or **memory addresses**.
 1. Example:
-  1. `add x1, x2, x3` uses registers as operands;
-  1. `addi x1, x2, 5` uses an immediate value (5).
+    1. `add x1, x2, x3` uses registers as operands;
+    1. `addi x1, x2, 5` uses an immediate value (5).
 
 ## Syntax
 
@@ -58,26 +61,27 @@ Assembly is human-readable but closely tied to the hardware. Let us break it dow
 
 ## Labels
 
-- Symbolic names for memory addresses, used for jumps or branches (e.g., loops or function calls).
-- Example: loop: marks a spot in the code.
+1. Symbolic names for memory addresses, used for jumps or branches (e.g., loops or function calls).
+1. Example: loop: marks a spot in the code.
 
 ## Comments
 
-- Ignored by the assembler, used for human readability.
-- In RISC-V, comments start with `#`.
+1. Ignored by the assembler, used for human readability.
+1. In RISC-V, comments start with `#`.
 
 ## Directives
 
-- Commands to the assembler (not CPU instructions), like `.data` to define data or `.text` for code sections.
+Commands to the assembler (not CPU instructions), like `.data` to define data or `.text` for code sections.
 
 ## RISC-V Instruction Types
-- RISC-V has a reduced instruction set, meaning it keeps things simple with a few key instruction formats:
-    - **R-type**: Register-to-register operations (e.g., arithmetic).
-    - **I-type**: Immediate operations (e.g., add a constant).
-    - **S-type**: Store instructions (save to memory).
-    - **B-type**: Branch instructions (conditional jumps).
-    - **U-type**: Upper immediate (large constants).
-    - **J-type**: Jump instructions (unconditional jumps).
+
+RISC-V has a reduced instruction set, meaning it keeps things simple with a few key instruction formats:
+1. **R-type**: Register-to-register operations (e.g., arithmetic).
+1. **I-type**: Immediate operations (e.g., add a constant).
+1. **S-type**: Store instructions (save to memory).
+1. **B-type**: Branch instructions (conditional jumps).
+1. **U-type**: Upper immediate (large constants).
+1. **J-type**: Jump instructions (unconditional jumps).
 
 # Code Examples
 
@@ -97,9 +101,9 @@ add x1, x2, x3
 addi x4, x1, 10
 ```
 
-- `add` is an R-type instruction: it operates on three registers.
-- `addi` is an I-type instruction: it uses two registers and an immediate value.
-- Anatomy: `[opcode] [destination], [source1], [source2 or immediate]`.
+1. `add` is an R-type instruction: it operates on three registers.
+1. `addi` is an I-type instruction: it uses two registers and an immediate value.
+1. Anatomy: `[opcode] [destination], [source1], [source2 or immediate]`.
 
 ### Loading and Storing Data (I-type and S-type)
 
@@ -114,8 +118,8 @@ lw x6, 0(x5)
 sw x6, 4(x7)
 ```
 
-- `lw` (load word) fetches 32 bits from memory into a register.
-- `sw` (store word) writes a register's value to memory.
+1. `lw` (load word) fetches 32 bits from memory into a register.
+1. `sw` (store word) writes a register's value to memory.
 
 The number (e.g., 0 or 4) is an offset added to the base address in the register.
 
@@ -142,9 +146,9 @@ exit:
   # Program ends
 ```
 
-- `beq` (branch if equal) compares two registers and jumps if they're equal.
-- `j` (jump) is a J-type instruction for unconditional jumps.
-- `loop:` and `exit:` are labels marking addresses.
+1. `beq` (branch if equal) compares two registers and jumps if they're equal.
+1. `j` (jump) is a J-type instruction for unconditional jumps.
+1. `loop:` and `exit:` are labels marking addresses.
 
 ### Function Call (J-type and I-type)
 
@@ -170,9 +174,9 @@ double:
 # Back in main, x2 now holds 6
 ```
 
-- `jal` (jump and link) jumps to a label and saves the return address.
-- `jalr` (jump and link register) returns using the address in `x10`.
-- Registers like `x10` are conventionally used for return addresses.
+1. `jal` (jump and link) jumps to a label and saves the return address.
+1. `jalr` (jump and link register) returns using the address in `x10`.
+1. Registers like `x10` are conventionally used for return addresses.
 
 ### Data Section (Directives)
 
@@ -193,8 +197,8 @@ Let's define some data and use it.
   lw x2, 0(x1)
 ```
 
-- `.data` and `.text` are directives telling the assembler where data and code go.
-- `la` (load address) is a pseudo-instruction that simplifies getting a label's address.
+1. `.data` and `.text` are directives telling the assembler where data and code go.
+1. `la` (load address) is a pseudo-instruction that simplifies getting a label's address.
 
 ## Putting It All Together
 
@@ -225,13 +229,13 @@ loop:
 # x2 now holds 15 (1+2+3+4+5)
 ```
 
-- Uses registers `x1`, `x2`, `x3`.
-- Combines I-type (`addi`), R-type (`add`), and B-type (`bne`).
+1. Uses registers `x1`, `x2`, `x3`.
+1. Combines I-type (`addi`), R-type (`add`), and B-type (`bne`).
 
 # Things to remember about RISC-V Assembly
 
-- **Fixed-length instructions**: All are 32 bits, making decoding simple.
-- **Load/store architecture**: Only lw and sw access memory; arithmetic uses registers.
-- **Minimalist design**: Fewer instructions than complex ISAs like x86, but still powerful.
+1. **Fixed-length instructions**: All are 32 bits, making decoding simple.
+1. **Load/store architecture**: Only lw and sw access memory; arithmetic uses registers.
+1. **Minimalist design**: Fewer instructions than complex ISAs like x86, but still powerful.
 
 Hopefully, this breakdown gave you a solid grasp of assembly code anatomy through RISC-V.
