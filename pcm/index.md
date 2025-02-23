@@ -190,6 +190,13 @@ This should generate the `since_wave.pcm` file. This file can now be opened in a
 
 ![](play.png)
 
+For your intellectual pleasure, here is how the audio should sound like. **It is a tone, so be mindful with the volume.**
+{{< audio "sine_wave.pcm">}}
+
+### Experiments to try!
+
+Notice that `int16_t sample = (int16_t)(AMPLITUDE * sin(phase));` line is the one that I used to create the sample. I used a single sine wave of constant phase. You can try changing the phase and also add sines with multiple phases.
+
 ### History of the PCM
 
 PCM was invented by British engineer Alec Reeves in 1937 while he was working for the International Telephone and Telegraph Corporation (ITT) in France. Reeves filed a patent for PCM in 1938, envisioning it as a way to transmit voice signals over telephone lines with greater clarity and resistance to noise compared to analog methods. His work was ahead of its time—practical implementations required electronic advancements that didn’t emerge until decades later.
