@@ -27,9 +27,6 @@ categories:
 # If this is a Series of posts, Add the name of the series
 series:
   - ""
-
-# Delete the line below when submitting for review
-draft: true
 ---
 
 Start to write your post here. Think of this section as the summary, the details can go below the `<!--more-->` marker. This marker separates the summary of the post from the details.
@@ -45,6 +42,5 @@ All images can have local path and the caption can be added next to the path as 
 ```
 ![](local-image.png "caption")
 ```
-
 
 ![](cover.png "caption")
