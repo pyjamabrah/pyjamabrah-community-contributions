@@ -15,8 +15,6 @@ categories:
 
 series:
   - "basics"
-
-draft: true
 ---
 What does a humble device like a router do? To most, a router is used till it breaks like many other devices in the house. The router plays such an important role by making sure your netflix works smoothly. However, a solo glance at its shell will reveal a battle raged for OpenWRT, RDK, and prplOS.
 
@@ -44,7 +42,16 @@ prplOS is part of the prpl Foundation’s open-source initiative, aiming to make
 -	Primary Strengths: Security-focused, modular, and optimized for low-resource environments.
 -	Weaknesses: Smaller ecosystem and not as widely supported as OpenWRT.
 
->> Table
+# Architectural Comparison
+
+|Feature	| OpenWRT | RDK |	prplOS |
+|:-|:-|:-|:-|
+|Kernel Base | Linux | Linux | Linux |
+|Package Management	| Opkg | Custom | Yocto-based |
+|Hardware Support |	Wide (consumer-grade)	| Focused on ISP-grade | Operator/ISP-grade |
+|Security Model	| Strong, community-driven | ISP-controlled	| High, virtualization-based |
+|Modularity | High | Moderate | High |
+|Target Market | Consumer/DIY, Enthusiasts | ISPs, MSOs	| Operators, ISPs, Enterprise |
 
 ## OpenWRT Architecture
 
@@ -77,7 +84,12 @@ prplOS emphasizes virtualization and security, featuring a Microvisor-based envi
 
 # Security and Performance
 
->> Table
+| Security Feature | OpenWRT | RDK | prplOS |
+|:-|:-|:-|:-|
+|Firmware Signing |	Yes (optional) | Yes (mandatory) | Yes (mandatory) |
+|Sandboxing	| Limited |	Docker-based | Microvisor-based |
+|Secure Boot | Hardware-dependent | Enforced by ISPs | Enforced |
+|Role-Based Access | Limited | ISP-controlled | Fine-grained policies |
 
 prplOS leads in security due to its focus on TEE (Trusted Execution Environment) and microvisor-based isolation. RDK enforces strict ISP-controlled security policies, while OpenWRT remains flexible but relies on community-driven security hardening.
 
@@ -126,7 +138,12 @@ prplOS was designed with security in mind, making it a solid choice for IoT envi
 
 # Ecosystem and Community Support
 
->> table
+| Firmware | Community Size | Commercial Backing | Documentation Quality |
+|:-|:-|:-|:-|
+|OpenWRT | Large, active | None (Fully Open-Source) | Extensive but community-driven |
+|RDK-B   | Niche (ISP-focused) | Comcast, Charter, etc. | Well-documented but ISP-centric |
+|prplOS  | Growing | Backed by prpl Foundation | Good but still maturing |
+
 
 ## OpenWRT: The DIY King
 
