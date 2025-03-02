@@ -102,7 +102,7 @@ else
 Let's try using curly braces. This is a common approach to solve the above problem.
 
 ```c
-#define BROKEN_MACRO(x) {statement1(x); statement2(x);}
+#define UNSAFE_MACRO(x) {statement1(x); statement2(x);}
 ```
 The code:
 ```c
