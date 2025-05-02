@@ -4,7 +4,7 @@ title: 'Storage Classes in the C Language'
 thumbnail: "/posts/storage-classes/storageclass.png"
 author: "streetdogg"
 
-product: "c"
+product: "embedded-engineering"
 
 tags:
   - "C Language"

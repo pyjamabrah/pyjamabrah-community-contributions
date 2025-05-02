@@ -7,7 +7,7 @@ thumbnail: "/posts/pcm/cover.png"
 
 author: "streetdogg"
 
-product: "c"
+product: "embedded-engineering"
 
 tags:
   - "C Language"

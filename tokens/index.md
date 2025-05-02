@@ -7,7 +7,7 @@ author: "streetdogg"
 product: "c"
 
 tags:
- - "C Language"
+ - "embedded-engineering"
 
 categories:
   - "basics"

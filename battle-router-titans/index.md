@@ -5,7 +5,7 @@ description: "The Battle of the Router Titans"
 thumbnail: "/posts/battle-router-titans/cover.jpg"
 author: "vjoyp"
 
-product: "c"
+product: "embedded-engineering"
 
 tags:
   - "Networking"

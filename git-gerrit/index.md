@@ -4,7 +4,7 @@ title: 'Git, Gerrit! and the Industry'
 thumbnail: "/posts/git-gerrit/cover.png"
 author: "streetdogg"
 
-product: "gitgerrit"
+product: "embedded-engineering"
 
 tags:
   - "git"

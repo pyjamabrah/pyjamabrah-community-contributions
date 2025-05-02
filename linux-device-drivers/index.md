@@ -4,7 +4,7 @@ title: 'Roadmap to Learning Linux Device Drivers'
 thumbnail: "/posts/linux-device-drivers/cover.png"
 author: "streetdogg"
 
-product: "c"
+product: "embedded-engineering"
 
 tags:
   - "linux"

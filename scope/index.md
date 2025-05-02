@@ -4,7 +4,7 @@ title: 'Scopes of Identifiers in C'
 thumbnail: "/posts/scope/thumbnail.png"
 author: "streetdogg"
 
-product: "c"
+product: "embedded-engineering"
 
 tags:
   - "C Language"

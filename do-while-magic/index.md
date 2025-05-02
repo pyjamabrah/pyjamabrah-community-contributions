@@ -32,7 +32,7 @@ series:
 # Delete the line below when submitting for review
 #draft: true
 
-product: "c"
+product: "embedded-engineering"
 ---
 
 In this article, I want to talk about the `do{..}while(0)` construct in C. This construct is often used in C programming to define multi-statement macros. It is a common pattern used in the Linux kernel and other standard C projects. I will take an example of a macro that is not safe and show how `do{..}while(0)` construct can be used to make it safe. Especially in the conditional statements.

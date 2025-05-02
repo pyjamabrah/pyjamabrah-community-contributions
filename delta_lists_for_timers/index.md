@@ -15,7 +15,7 @@ tags:
 categories:
   - "Embedded Timers"
 
-product: "c"
+product: "embedded-engineering"
 ---
 
 ![](/posts/delta_lists_for_timers/cover.png "Delta Timer List")
