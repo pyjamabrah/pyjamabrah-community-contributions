@@ -100,6 +100,7 @@ Developing bootloaders for Cortex-M CPUs involves several challenges:
 # Simple Bootloader Workflow
 
 Here’s a simplified pseudo-code representation of a Cortex-M bootloader:
+
 ```c
 void reset_handler(void) {
     // Initialize system clock
@@ -122,9 +123,11 @@ void reset_handler(void) {
             // Set VTOR to application’s vector table
             SCB->VTOR = APP_VECTOR_TABLE_ADDRESS;
             // Load application’s stack pointer
-            set_sp(*(uint32_t *)APP_VECTOR_TABLE_ADDRESS);
+            set_sp(*(uint32_t *)
+                   APP_VECTOR_TABLE_ADDRESS);
             // Jump to application’s reset handler
-            jump_to(*(uint32_t *)(APP_VECTOR_TABLE_ADDRESS + 4));
+            jump_to(*(uint32_t *)
+                   (APP_VECTOR_TABLE_ADDRESS + 4));
         }
     }
     // Fallback: halt or reset
