@@ -14,6 +14,10 @@ categories:
   - "arm64"
 ---
 
+ARM-A is the most prevalent architecture out there powering billions of devices. We will be covering these topics over the course of multiple articles in this series.
+
+<!--more-->
+
 # Exception Levels and Security States
 
 Hey there! If you’re diving into the ARMv8-A architecture you might benefit from this writeup.
