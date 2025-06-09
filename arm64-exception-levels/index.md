@@ -24,11 +24,11 @@ Hey there! If you’re diving into the ARMv8-A architecture you might benefit fr
 
 ARM-A class are a beast of a system, with layers of control and security (sometimes I feel like they are a bit of an overkill). But that's what makes it both powerful and complex.
 
-In this one, we will walk through the exception levels (EL0 to EL3) and the security states (Non-secure and Secure). These are the backbone of how ARMv8-A organizes privilege, isolation, and trust. 
+In this one, we will walk through the exception levels (EL0 to EL3) and the security states (Non-secure and Secure). These are the backbone of how ARMv8-A organizes privilege, isolation, and trust.
 
 ## What’s ARMv8-A?
 
-Before we jump into the nitty-gritty, let’s set the stage. ARMv8-A is the architecture behind most modern 64-bit ARM processors (think Cortex-A series, like the ones in your phone or in your latest Mac Mx chip or in server class CPUs). 
+Before we jump into the nitty-gritty, let’s set the stage. ARMv8-A is the architecture behind most modern 64-bit ARM processors (think Cortex-A series, like the ones in your phone or in your latest Mac Mx chip or in server class CPUs).
 
 It’s designed for flexibility, supporting everything from bare-metal IoT devices to full-blown operating systems like Linux or Android. The key to its power lies in how it manages privilege and security through _exception levels_ and _security states_. These concepts sort of govern who can access what, when, and how—whether it’s an app, an OS kernel, a hypervisor, or a trusted OS or a secure firmware.
 
@@ -36,7 +36,7 @@ It’s designed for flexibility, supporting everything from bare-metal IoT devic
 
 ## Exception Levels:-
 
-ARMv8-A organizes its processing modes into four exception levels, namely -  EL0, EL1, EL2, and EL3. Think of these as a stack of privilege, where higher numbers mean more control over the system. Each level runs specific types of software, and the transitions between them are tightly controlled. 
+ARMv8-A organizes its processing modes into four exception levels, namely -  EL0, EL1, EL2, and EL3. Think of these as a stack of privilege, where higher numbers mean more control over the system. Each level runs specific types of software, and the transitions between them are tightly controlled.
 
 ### EL0: The Unprivileged World (User Apps)
 
@@ -48,7 +48,7 @@ EL0 is where your everyday applications live—think your browser, games, or tha
 
 Below code snippet makes a system call request to EL1 from EL0 (in AArch64 assembly). We take an example of `write()` system call which we seldom have to bother about given we use a nice wrapper like `printf()`.
 
-```
+```asm
 mov x8, #64    // Syscall number for 'write'
 mov x0, #1     // File descriptor (stdout)
 ldr x1, =msg   // Pointer to the message string.
@@ -71,7 +71,7 @@ EL1 is where the operating system kernel runs, like Linux or Windows. It’s got
 
 Code snippet (remember we are only highligting very key details, rest is deliberalety omitted) of EL1 handler for the `svc` call from EL0:
 
-```
+```asm
 // Vector table entry for synchronous exception at EL1
 sync_exception_entry:
     mrs x9, esr_el1     // Read Exception Syndrome Register
@@ -93,11 +93,11 @@ EL2 is where hypervisors live—think KVM, VirtualBox or VMware. It’s designed
 * Hypervisors or virtual machine monitors (VMMs) run here. They are kernels for kernels (if that makes sense !)
 * EL2 can trap and emulate hardware accesses from EL1, giving it fine-grained control over guest OS behavior.
 * `hvc` instructions is a synchronous way to request the services of Hypervisor by EL1 layer.
-* EL2’s job is to schedule and provide an envrionment where multiple OSes/Kernels can co-exists and run. They provide an isolated view to each of the kernel (making them believe they are the king of the castle). This often means that, they will have to spoof certain transactions or even memory-maps, intercept certain interrupts to achieve this (Again, I will request you to bear with me and wait for these details to be shared in the next articles). 
+* EL2’s job is to schedule and provide an envrionment where multiple OSes/Kernels can co-exists and run. They provide an isolated view to each of the kernel (making them believe they are the king of the castle). This often means that, they will have to spoof certain transactions or even memory-maps, intercept certain interrupts to achieve this (Again, I will request you to bear with me and wait for these details to be shared in the next articles).
 
 This code snippet shows at high level the handling of `hvc` (Hypervisor call) from EL1 layer (Guest OS or Virtual Machine).
 
-```
+```asm
 // Vector table entry for synchronous exception of EL2
 sync_exception_entry:
     // ESR_EL2 contains the exception cause details
@@ -134,7 +134,7 @@ EL3 is the most privileged level, reserved for the _secure monitor_—a piece of
 
 Here’s a snippet of EL3 code handling a secure monitor call (`SMC`):
 
-```
+```asm
 // Vector table entry for synchronous exception at EL3
 sync_exception_entry:
     mrs x9, esr_el3     // Read Exception Syndrome Register
@@ -145,7 +145,7 @@ sync_exception_entry:
 smc_hanlder:
     // Based on the request ID, decide whether switch to secure world is needed or not
     // If needed modify SCR_EL3 appropriately and then return
-    eret  
+    eret
 ```
 
 ## Security States: Secure vs. Non-secure Worlds
@@ -157,7 +157,7 @@ Now, let’s talk about the _security states_: Secure and Non-secure. ARMv8-A sp
 
 The secure monitor (EL3) acts as a gatekeeper, using the `scr_el3` (Secure Configuration Register) to control and switch between the two worlds. The snippet shows that switch from NS to S world.
 
-```
+```asm
 // scr_el3 to switch to secure world
 mrs x0, scr_el3
 orr x0, x0, #1     // Set NS bit to 0 (Secure world)

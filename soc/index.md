@@ -14,9 +14,12 @@ categories:
   - "soc"
 ---
 
-A System on Chip (SoC) is an integrated circuit that combines multiple components of a computer or electronic system into a single chip. Unlike traditional setups where the CPU, memory, and peripherals are separate and connected via a motherboard, an SoC integrates these into a compact, power-efficient package.
+A System on Chip (SoC) is an integrated circuit that combines multiple components of a computer or electronic system into a single chip.
 
 <!--more-->
+
+Unlike traditional setups where the CPU, memory, and peripherals are separate and connected via a motherboard, an SoC integrates these into a compact, power-efficient package.
+
 # Key Components of an SoC
 - **CPU (Central Processing Unit):** The core processing unit, often a multi-core processor like the ARM Cortex-A series in AArch64.
 - **GPU (Graphics Processing Unit):** Manages graphics rendering, essential for systems with displays.
