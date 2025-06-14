@@ -195,12 +195,14 @@ The Exception Class (EC, bits 31:26) is `0x15` for `svc` from AArch64. The ISS (
 
 ELR_EL1 holds the return address (usually the instruction after `svc`). The kernel can modify it for special cases.
 
-    // prepare to return to EL0
-    return_to_el0:
-        // ELR_EL1 holds return address
-        // SPSR_EL1 holds saved PSTATE
-        bl restore_context
-        eret                   // return to EL0
+```asm
+// prepare to return to EL0
+return_to_el0:
+    // ELR_EL1 holds return address
+    // SPSR_EL1 holds saved PSTATE
+    bl restore_context
+    eret                   // return to EL0
+```
 
 The `eret` instruction restores PC from ELR_EL1 and state from SPSR_EL1.
 
