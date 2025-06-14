@@ -13,26 +13,27 @@ tags:
 
 categories:
   - "arm64"
+
 ---
 
 Syscalls and switching between different exception levels is a very intricate topic filled with minute details which are often overlooked. Let's dive into details.
 
 <!--more-->
 
-# EL0<->EL1 switching
+# EL0 <-> EL1 switching
 
 Hello There!
 
-Let's continue on our journey of understanding a mammoth that is the ARM64 architecuture.
+Let's continue on our journey of understanding a mammoth that is the ARM64 architecture.
 
-In the [Previous artcile](https://pyjamabrah.com/posts/arm64-exception-levels/), we went throught different exception levels. Would encourage perusing through it once in case you'd want to jog your memories. In this one, we would together want to attempt to deep dive into switching between two of the exception levels - `EL0` and `EL1`.
+In the [Previous article](https://pyjamabrah.com/posts/arm64-exception-levels/), we went through different exception levels. Would encourage perusing through it once in case you'd want to jog your memories. In this one, we would together want to attempt to deep dive into switching between two of the exception levels - `EL0` and `EL1`.
 
-We'll walk through the process of a system call from EL0 to EL1 and the return journey, focusing on context switching, the vector table, synchronous exception handling, and key registers like ESR_EL1 and ELR_EL1. We will see from the lens of code snippets to see how implementation might look in action. Finally, we will piece together the snippets to arrive at full switching flow.
+We'll walk through the process of a system call from EL0 to EL1 and the return journey, focusing on context switching, the vector table, synchronous exception handling, and key registers like `ESR_EL1` and `ELR_EL1`. We will explore from the lens of code snippets to see how implementation might look in action. Finally, we will piece together the snippets to arrive at full switching flow.
 
 ## Quick Recap
 
 ARMv8-A organizes privilege levels into Exception Levels (EL0 to EL3).
-* EL0 is where user applications run---unprivileged, restricted access.
+* EL0 is where user applications run --- unprivileged, restricted access.
 * EL1 is typically the OS kernel, with more privileges like accessing system registers.
 * Switching between these levels happens during exceptions, like system calls, interrupts, or faults.
 * A system call (via the `svc` instruction) is a synchronous exception that moves execution from EL0 to EL1. The return to EL0 is handled by the `eret` instruction.
@@ -57,20 +58,22 @@ print_msg:
     .asciz "Hey from EL0, this message is for EL1\n"
 ```
 
-What's happening here? I load the system call number (64 for `write` in Linux ARM64) into `x8`, set up arguments in `x0`--`x2` (per the Linux ABI), and issue `svc #0`. The immediate value (`#0`) is mostly ignored in practice but can be used by the kernel to differentiate types of supervisor calls. When `svc` executes, the processor (automatically happens in h/w, no s/w intervention is required):
+What's happening here?
+
+I load the system call number (**64** for `write` in Linux ARM64) into `x8`, set up arguments in `x0`--`x2` (per the Linux ABI), and issue `svc #0`. The immediate value (`#0`) is mostly ignored in practice but can be used by the kernel to differentiate types of supervisor calls. When `svc` executes, the processor (automatically happens in h/w, no s/w intervention is required):
 
 - Switches to EL1.
-- Saves the program counter (PC) to ELR_EL1 (Exception Link Register for EL1).
-- Saves the status register (PSTATE) to SPSR_EL1 (Saved Program Status Register for EL1).
+- Saves the program counter (`PC`) to `ELR_EL1` (Exception Link Register for EL1).
+- Saves the status register (`PSTATE`) to `SPSR_EL1` (Saved Program Status Register for EL1).
 - Jumps to the vector table entry for synchronous exceptions.
 
-**Note**: The `svc` instruction doesn't save general-purpose registers (`x0`--`x30`). That's on the kernel to handle, or you risk clobbering user state.
+> The `svc` instruction doesn't save general-purpose registers (`x0`--`x30`). That's on the kernel to handle, or you risk clobbering user state.
 
-**Homework**: Imagine any malicious user passes garbage or some unsavory data in registers (e.g., an invalid pointer in `x1`), the kernel needs robust validation to avoid crashes. Can you come up with some modifcations in our snippet to achieve that?
+**Homework**: Imagine any malicious user passes garbage or some unsavory data in registers (e.g., an invalid pointer in `x1`), the kernel needs robust validation to avoid crashes. Can you come up with some modifications in our snippet to achieve that?
 
 ## The Vector Table and Synchronous Exception Handling
 
-When the `svc` instruction fires, the processor looks at the Vector Base Address Register (VBAR_EL1 - it is programmed during the boot phase, we will talk about this in future artciles when we talk about the boot flow) to find the vector table---a table of exception handlers in EL1. The table has entries for different exception types, including synchronous exceptions like system calls.
+When the `svc` instruction fires, the processor looks at the Vector Base Address Register (`VBAR_EL1` - it is programmed during the boot phase, we will talk about this in future articles when we talk about the boot flow) to find the vector table --- a table of exception handlers in EL1. The table has entries for different exception types, including synchronous exceptions like system calls.
 
 For a 64-bit EL0 app, the processor jumps to the "Synchronous, Lower EL, AArch64" entry.
 
@@ -162,9 +165,9 @@ Here is the key is store all the registers (`x0`--`x30`) to a stack frame (256 b
 
 **Homework**: You'd see a very similar looking code in any major kernel source out there. There might be some extra registers (e.g Floating point registers, SVE/NEON registers) which might also be saved/restored. Analyzed the Linux source and jot-down those differences.
 
-## Parsing ESR_EL1
+## Parsing `ESR_EL1`
 
-The Exception Syndrome Register (ESR_EL1) identifies the exception cause. Remember, h/w will only be able to identify that a synchronous exception from lower EL and the control would be transferred to the appropriate entry in vector table which is `sync_lower_el`. We will have to identify if it is indeed a `svc` call or not, and for that, we will have to decode the exception syndrome register.
+The Exception Syndrome Register (`ESR_EL1`) identifies the exception cause. Remember, h/w will only be able to identify that a synchronous exception from lower EL and the control would be transferred to the appropriate entry in vector table which is `sync_lower_el`. We will have to identify if it is indeed a `svc` call or not, and for that, we will have to decode the exception syndrome register.
 
 For a system call, it confirms an `svc` instruction and provides details.
 
@@ -175,7 +178,7 @@ parse_and_handle_syscall:
     mrs x0, esr_el1        // read ESR_EL1
     ubfx x1, x0, #26, #6   // extract Exception Class bits - BITs 31:26
     cmp x1, #0x15          // EC for SVC from AArch64 = 0x15
-    b.eq handle_svc        // branch to SVC handler (at this point we have with certainity figured it's an SVC)
+    b.eq handle_svc        // branch to SVC handler (at this point we have with certainty figured it's an SVC)
     // handle other exceptions
     b other_exception
 
@@ -189,11 +192,11 @@ other_exception:
     b .
 ```
 
-The Exception Class (EC, bits 31:26) is `0x15` for `svc` from AArch64. The ISS (bits 15:0) holds the `svc` immediate.
+The Exception Class (**EC**, bits `31:26`) is `0x15` for `svc` from AArch64. The **ISS** (bits 15:0) holds the `svc` immediate.
 
 ## ELR_EL1 and Returning to EL0
 
-ELR_EL1 holds the return address (usually the instruction after `svc`). The kernel can modify it for special cases.
+`ELR_EL1` holds the return address (usually the instruction after `svc`). The kernel can modify it for special cases.
 
 ```asm
 // prepare to return to EL0
@@ -294,6 +297,8 @@ return_to_el0:
     eret
 ```
 
-**Homework**: I've deliberately kept a subtle bug in the above snippet. Can you catch it? Hint - it is related to return values being correctly communicated back.
+**Homework**: I've deliberately kept a subtle bug in the above snippet. Can you catch it?
+
+Hint - it is related to return values being correctly communicated back.
 
 In the next one, we will talk about the switching of other layers and even secure and non-secure worlds. We will take a simple use-case and trace its flow. See you in the next one!
