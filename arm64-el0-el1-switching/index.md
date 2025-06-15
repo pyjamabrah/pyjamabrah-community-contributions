@@ -51,7 +51,7 @@ Here's a simple EL0 code snippet to trigger a system call:
 mov x8, #64           // syscall number for write (Linux ARM64)
 mov x0, #1            // file descriptor (stdout = 1)
 adr x1, print_msg     // pointer to message
-mov x2, #12           // length of message
+mov x2, #38           // length of message
 svc #0                // trigger system call to EL1
 
 print_msg:
