@@ -52,7 +52,7 @@ Below code snippet makes a system call request to EL1 from EL0 (in AArch64 assem
 mov x8, #64    // Syscall number for 'write'
 mov x0, #1     // File descriptor (stdout)
 ldr x1, =msg   // Pointer to the message string.
-mov x2, #13    // Length of message
+mov x2, #38    // Length of message
 svc #0         // System call to EL1
 
 msg:
