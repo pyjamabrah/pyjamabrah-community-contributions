@@ -160,7 +160,7 @@ The secure monitor (EL3) acts as a gatekeeper, using the `scr_el3` (Secure Confi
 ```asm
 // scr_el3 to switch to secure world
 mrs x0, scr_el3
-orr x0, x0, #1     // Set NS bit to 0 (Secure world)
+bic x0, x0, #1     // Set NS bit to 0 (Secure world)
 msr scr_el3, x0
 isb
 // Set elr_el3 correspondingly
