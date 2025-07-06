@@ -1,7 +1,7 @@
 ---
 date: "2025-07-06"
 title: 'ARMv8a Procedure Call standard and GPRs'
-thumbnail: "/posts/arm64-gprs-and-pcs/arm64-gprs-and-pcs.png"
+thumbnail: "/posts/arm64-day3-gprs-and-pcs/arm64-gprs-and-pcs.png"
 author: "Mbharmal"
 
 product: "embedded-engineering"

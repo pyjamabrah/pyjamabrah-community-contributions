@@ -1,7 +1,7 @@
 ---
 date: "2025-06-14"
 title: 'ARMv-8a EL0<->EL1 Switching'
-thumbnail: "/posts/arm64-el0-el1-switching/switching.png"
+thumbnail: "/posts/arm64-day1-el0-el1-switching/switching.png"
 author: "Mbharmal"
 
 product: "embedded-engineering"

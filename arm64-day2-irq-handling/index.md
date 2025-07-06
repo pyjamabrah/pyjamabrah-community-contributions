@@ -2,7 +2,7 @@
 ---
 date: "2025-06-15"
 title: 'ARMv-8a IRQ handling'
-thumbnail: "/posts/arm64-irq-handling/interrupt_handling.png"
+thumbnail: "/posts/arm64-day2-irq-handling/interrupt_handling.png"
 author: "Mbharmal"
 
 product: "embedded-engineering"

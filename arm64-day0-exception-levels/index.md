@@ -1,7 +1,7 @@
 ---
 date: "2025-06-09"
 title: 'ARMv-8a Exception Levels'
-thumbnail: "/posts/arm64-exception-levels/ARM64-architecture.png"
+thumbnail: "/posts/arm64-day0-exception-levels/ARM64-architecture.png"
 author: "Mbharmal"
 
 product: "embedded-engineering"
