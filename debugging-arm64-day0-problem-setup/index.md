@@ -21,6 +21,7 @@ categories:
 
 GDB, OpenOCD, JTAG, SWD etc are terms often thrown around when it comes to debugging in an embedded environment. They are naught but just tools made available to us. We will actually understand the core principles and ideas behind debugging such that the usage of such tools would become evident and obvious.
 
+<!--more-->
 
 # On Debugging an Embedded System
 
@@ -118,7 +119,7 @@ int main() {
 
 Let's take a look at the evidences and clues at our disposal. This would be a typical crash report when an ARM-A class core crashes.
 
-```
+```asm
 *** Data Abort Exception ***
 
 Exception occurred at: 0x0000000000008b20 ; Where the fault happened
@@ -173,7 +174,7 @@ Register State:
 
 Let's also take a look at stack trace and dis-assembly of a few instructions at **pc**.
 
-```
+```asm
 Stack Trace:
   #0  0x0000000000008b20 in thread2_func(...)
   #1  0x0000000000008a50 in pthread_create_wrapper (...)
@@ -182,7 +183,6 @@ Few lines of assembly at the crash site:
 0x00008b18 <thread2_func+8>:  ldr    r0, [pc, #12]     ; Load address of shared_ptr into r0
 0x00008b1c <thread2_func+12>: ldr    r0, [r0]          ; Load shared_ptr value (base address) into r0
 0x00008b20 <thread2_func+16>: ldr    r2, [r0, #2]      ; Dereference shared_ptr[2] (load from address in r0)
-
 ```
 
 **Key Clues**:
