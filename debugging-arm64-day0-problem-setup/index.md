@@ -1,6 +1,6 @@
 ---
 date: "2025-07-13"
-title: 'Debugging an Embedded System - Day 0'
+title: 'Debugging an Embedded System - Day 0 - Undestanding What is Debugging'
 thumbnail: "/posts/debugging-arm64-day0-problem-setup/thumbnail.jpg"
 author: "Mbharmal"
 
