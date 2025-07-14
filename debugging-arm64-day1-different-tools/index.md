@@ -1,5 +1,5 @@
 ---
-date: "2025-07-15"
+date: "2025-07-14"
 title: 'Debugging an Embedded System - Day 1 - Introducing different Tools'
 thumbnail: "/posts/debugging-arm64-day1-different-tools/thumbnail.jpg"
 author: "Mbharmal"
