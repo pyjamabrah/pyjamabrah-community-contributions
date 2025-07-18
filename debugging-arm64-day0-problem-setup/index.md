@@ -1,6 +1,6 @@
 ---
 date: "2025-07-13"
-title: 'Debugging an Embedded System - Day 0 - Undestanding What is Debugging'
+title: 'Debugging an Embedded System - Day 0 - Understanding What is Debugging'
 thumbnail: "/posts/debugging-arm64-day0-problem-setup/thumbnail.jpg"
 author: "Mbharmal"
 
@@ -30,9 +30,9 @@ This series is going to focus on whats, whys and hows of debugging embedded syst
 We might have come across terms like GDB, OpenOCD, JTAG, SWD. If I am able to do justice to the topic, we will hopefully be able to in this series:
 * Explore, understand and reason through what is it they bring to the table and why are they required.
 * Understand different topologies in which they are or can be connected
-* Introduce the ARM debug infrastrucutre - CoreSight, ETM, CTI
+* Introduce the ARM debug infrastructure - CoreSight, ETM, CTI
 * Code snippets to show some of the points and configs
-* \[Strech Goal\] - Program and connect **Raspberry Pi** as our custom debug probe
+* \[Stretch Goal\] - Program and connect **Raspberry Pi** as our custom debug probe
 
 ***
 
@@ -46,7 +46,7 @@ Before we jump the gun, let's convince ourselves why debugging is even required.
 
 Debugging is like being a detective in a crime drama. Your code is the crime scene, it is behaving weirdly. You know like it’s crashing, or just not doing what you expect. I would define the process of debugging roughly as,
 
-"Debugging is the process of finding the culprit (the bug) by figuring out the clues (the stack traces for e.g.), analyzing evidence (the registers and memory contents) and then forming a theory to explain the observations and findings. In this one we will focus on one such compartively simpler example where this flow is seen.
+"Debugging is the process of finding the culprit (the bug) by figuring out the clues (the stack traces for e.g.), analyzing evidence (the registers and memory contents) and then forming a theory to explain the observations and findings. In this one we will focus on one such comparatively simpler example where this flow is seen.
 
 In embedded systems, this gets a bit trickier because we’re often dealing with low-level hardware, limited resources, and complex systems interacting with multiple components. But, we also have some very awesome tools at our disposal which we will get introduced to in this article.
 
@@ -187,7 +187,7 @@ Few lines of assembly at the crash site:
 
 **Key Clues**:
 * `r0` is 0x00000000, confirming that `shared_ptr` is NULL when Thread 2 tries to dereference it.
-* `FAR_EL1`(Fault Address Register) shows the content as 0x2, that means the offset 2 was added while dereferencing which is confirmed the code snippet `char value = shared_ptr[2]; // Read the char at 2nd offset`. This further confirms our hypothesis thta `shared_ptr` is NULL.
+* `FAR_EL1`(Fault Address Register) shows the content as 0x2, that means the offset 2 was added while dereferencing which is confirmed the code snippet `char value = shared_ptr[2]; // Read the char at 2nd offset`. This further confirms our hypothesis that `shared_ptr` is NULL.
 * The program counter (pc) points to the `ldr r2, [r0, #2]` instruction.
 * Stack trace confirms supports this hypothesis as well.
 
@@ -197,14 +197,14 @@ Remeber, we have figured out that the crash is due to NULL-pointer exception. No
 Let's take a look at the code snippet and ask the question:
 
 * When can `shared_ptr` be NULL?
-  * One possible Answer: When it is not initalized by **Thread 1** and **Thread 2** has used it.
+  * One possible Answer: When it is not initialized by **Thread 1** and **Thread 2** has used it.
     * When can that happen: When **Thread 2** executes before **Thread 1** and de-references `shared_ptr`.
 
 Now, that's sounds like a potential case which can happen and which would result in a similar crash as ours. That's a very good start.
 
 Once we have arrived at a potential theory or hypothesis which seems plausible, we should try to see if it works.
 
-In our case, let's try to fix this. One of the quickest ways to verify would be to just add a check before derefencing.
+In our case, let's try to fix this. One of the quickest ways to verify would be to just add a check before dereferencing.
 
 ```c
 #include <pthread.h>
