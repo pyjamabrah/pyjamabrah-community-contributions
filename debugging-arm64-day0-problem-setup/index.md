@@ -192,7 +192,7 @@ Few lines of assembly at the crash site:
 * Stack trace confirms supports this hypothesis as well.
 
 **Our Theory**:
-Remeber, we have figured out that the crash is due to NULL-pointer exception. Now our job is explain why does it happen. For that we usually try to hypothesis few theories which explain the actuall cause taking into account the clues and findings.
+Remember, we have figured out that the crash is due to NULL-pointer exception. Now our job is explain why does it happen. For that we usually try to hypothesis few theories which explain the actual cause taking into account the clues and findings.
 
 Let's take a look at the code snippet and ask the question:
 
