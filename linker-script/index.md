@@ -9,7 +9,7 @@ product: "embedded-engineering"
 
 tags:
   - "linkerscript"
-  - "memory'
+  - "memory"
 
 series:
   - "linker-script"
