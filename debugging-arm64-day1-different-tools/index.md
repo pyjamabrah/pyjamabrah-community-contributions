@@ -92,7 +92,7 @@ In these scenarios, we will have to run these utilities on the host side and con
 * JTAG
 * SWD
 
-Because the industry came together and standarized the debug infrastructure and communication interfaces, it really eases the job of designers. If a system supports JTAG or SWD then it is guaranteed that it can be interfaced by any debugger which is capable of talking over these protocols.
+Because the industry came together and standarized the debug infrastructure and communication interfaces, it really eases the life of designers. If a system supports JTAG or SWD then it is guaranteed that it can be interfaced by any debugger which is capable of talking over these protocols.
 
 In this one we will gloss over the key details of both of these, while we will uncover them in detail in the upcoming articles.
 
