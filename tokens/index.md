@@ -4,7 +4,7 @@ title: 'Tokens in C Language'
 thumbnail: "/posts/tokens/tokens.png"
 author: "streetdogg"
 
-product: "c"
+product: "1-c"
 
 tags:
  - "embedded-engineering"
